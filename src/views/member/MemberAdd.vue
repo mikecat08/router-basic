@@ -1,0 +1,68 @@
+
+<script setup lang="ts">
+import {inject, reactive} from "vue";
+import { RouterLink } from "vue-router";
+import type {Member} from "@/interfaces";
+
+const memberList = inject("memberList") as Map<number, Member>;
+const member: Member = reactive(
+  {
+    id: 0,
+    name: "",
+    email: "",
+    points: 0,
+    note: ""
+  }
+);
+const onAdd = (): void => {
+  console.log(member);
+};
+</script>
+
+
+<template>
+  <h1>会員管理</h1>
+  <nav id="breadcrumbs">
+    <ul>
+      <li>
+        <RouterLink v-bind:to="{name: 'AppTop'}">
+          TOP
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink v-bind:to="{name: 'MemberList'}">
+          会員リスト
+        </RouterLink>
+      </li>
+      <li>会員情報追加</li>
+    </ul>
+  </nav>
+  <section>
+    <h2>会員情報追加</h2>
+    <p>
+      情報を入力し、登録ボタンをクリックしてください。
+    </p>
+    <form v-on:submit.prevent="onAdd">
+      <dl>
+        <dt>
+          <label for="addId">ID&nbsp;</label>
+        </dt>
+        <dd>
+          <input type="number" id="addId" v-model.number="member.id" required>
+        </dd>
+        <dt>
+          <label for="addName">名前&nbsp;</label>
+        </dt>
+        <dd>
+          <input type="text" id="addName" v-model="member.name" required>
+        </dd>
+        <dt>
+          <label for="addName">メールアドレス&nbsp;</label>
+        </dt>
+        <dd>
+          <input type="email" id="addEmail" v-model="member.email" required>
+        </dd>
+      </dl>
+    </form>
+  </section>
+</template>
