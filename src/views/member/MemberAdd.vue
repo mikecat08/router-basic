@@ -3,6 +3,7 @@
 import {inject, reactive} from "vue";
 import { RouterLink } from "vue-router";
 import type {Member} from "@/interfaces";
+import router from "@/router";
 
 const memberList = inject("memberList") as Map<number, Member>;
 const member: Member = reactive(
@@ -16,6 +17,8 @@ const member: Member = reactive(
 );
 const onAdd = (): void => {
   console.log(member);
+  memberList.set(member.id, member);
+  router.push({name: "MemberList"});
 };
 </script>
 
@@ -62,7 +65,20 @@ const onAdd = (): void => {
         <dd>
           <input type="email" id="addEmail" v-model="member.email" required>
         </dd>
+        <dt>
+          <label for="addPoints">保有ポイント&nbsp;</label>
+        </dt>
+        <dd>
+          <input type="number" id="addPoints" v-model="member.points" required>
+        </dd>
+        <dt>
+          <label for="addNote">備考&nbsp;</label>
+        </dt>
+        <dd>
+          <textarea id="addNote" v-model="member.note"></textarea>
+        </dd>
       </dl>
+      <button type="submit">登録</button>
     </form>
   </section>
 </template>

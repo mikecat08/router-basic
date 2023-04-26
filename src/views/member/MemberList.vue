@@ -23,7 +23,7 @@ const memberList = inject("memberList") as Map<number, Member>;
     <h2>会員リスト</h2>
     <p>
       新規登録は
-      <RouterLink v-bind:to="{name: 'memberAdd'}">
+      <RouterLink v-bind:to="{name: 'MemberAdd'}">
         こちら
       </RouterLink>
       から
